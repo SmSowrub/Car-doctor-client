@@ -1,11 +1,33 @@
+import { useContext } from 'react';
 import loginImg from '../../../assets/images/login/login.svg'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Providers/AuthProviders';
 
 
-const handleSignUp = (event) => {
-    event.preventDefault();
-}
+
 const SignUp = () => {
+    
+    const {signUp}=useContext(AuthContext)
+
+    const handleSignUp = (event) => {
+        event.preventDefault();
+        const from =event.target;
+        const name =from.name.value;
+        const email =from.email.value;
+        const password =from.password.value;
+        console.log(name,password, email);
+        signUp(email,password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log(user);
+          })
+          .catch((error) => {
+           console.error(error);
+           
+          });
+        
+
+    }
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content  flex-col lg:flex-row">
